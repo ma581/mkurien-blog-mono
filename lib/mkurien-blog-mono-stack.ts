@@ -9,8 +9,10 @@ export class MkurienBlogMonoStack extends cdk.Stack {
     const likeCounter = new LikeCounter(this, 'LikeCounter', {
     });
 
-    const backendGateway = new apigw.LambdaRestApi(this, 'Endpoint', {
-      handler: likeCounter.incrementLikesHandler
-    });
-  }
+    const api = new apigw.RestApi(this, 'blog-api');
+    api.root.addMethod('ANY');
+
+    const likes = api.root.addResource('likes');
+    likes.addMethod('GET',  new apigw.LambdaIntegration(likeCounter.getLikesHandler));
+    likes.addMethod('POST', new apigw.LambdaIntegration(likeCounter.incrementLikesHandler));  }
 }
