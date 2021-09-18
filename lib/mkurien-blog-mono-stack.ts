@@ -1,18 +1,16 @@
-import * as sns from '@aws-cdk/aws-sns';
-import * as subs from '@aws-cdk/aws-sns-subscriptions';
-import * as sqs from '@aws-cdk/aws-sqs';
 import * as cdk from '@aws-cdk/core';
+import * as apigw from '@aws-cdk/aws-apigateway';
+import { LikeCounter } from './likecounter';
 
 export class MkurienBlogMonoStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const queue = new sqs.Queue(this, 'MkurienBlogMonoQueue', {
-      visibilityTimeout: cdk.Duration.seconds(300)
+    const likeCounter = new LikeCounter(this, 'LikeCounter', {
     });
 
-    const topic = new sns.Topic(this, 'MkurienBlogMonoTopic');
-
-    topic.addSubscription(new subs.SqsSubscription(queue));
+    const backendGateway = new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: likeCounter.incrementLikesHandler
+    });
   }
 }
