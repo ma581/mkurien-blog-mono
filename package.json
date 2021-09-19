@@ -25,6 +25,7 @@
     "@aws-cdk/aws-certificatemanager": "^1.123.0",
     "@aws-cdk/aws-dynamodb": "^1.123.0",
     "@aws-cdk/aws-lambda": "^1.123.0",
+    "@aws-cdk/aws-route53": "^1.123.0",
     "@aws-cdk/core": "1.121.0"
   }
 }

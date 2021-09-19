@@ -1,7 +1,7 @@
 import * as cdk from '@aws-cdk/core';
 import * as apigw from '@aws-cdk/aws-apigateway';
-import * as acm from '@aws-cdk/aws-certificatemanager';
 import { LikeCounter } from './likecounter';
+import { ApiWithDomain } from './api';
 
 export class MkurienBlogMonoStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -10,18 +10,15 @@ export class MkurienBlogMonoStack extends cdk.Stack {
     const likeCounter = new LikeCounter(this, 'LikeCounter', {
     });
 
-    const api_mkurien_dot_com = 'api.mkurien.com';
-    const certForMkuriencom = new acm.Certificate(this, "cert-mkurien.com", {
-      domainName: api_mkurien_dot_com,
-    });
-    // https://docs.aws.amazon.com/cdk/api/latest/docs/aws-apigateway-readme.html
-    const api = new apigw.RestApi(this, api_mkurien_dot_com, {
-      domainName: {
-        domainName: api_mkurien_dot_com,
-        certificate: certForMkuriencom
-      }
-    });
+    const apiDomainName = 'api.mkurien.com';
+
+    const apiConstruct = new ApiWithDomain(this, "api", {
+      domainName: apiDomainName
+    })
+    const api = apiConstruct.api
+
     api.root.addMethod('ANY');
+    // api.domainName?.addBasePathMapping
     const likes = api.root.addResource('likes');
     likes.addMethod('GET', new apigw.LambdaIntegration(likeCounter.getLikesHandler));
     likes.addMethod('POST', new apigw.LambdaIntegration(likeCounter.incrementLikesHandler));
