@@ -3,6 +3,7 @@ import * as lambda from '@aws-cdk/aws-lambda';
 import * as dynamodb from '@aws-cdk/aws-dynamodb';
 
 export interface LikeCounterProps {
+    corsAllowOrigin: string
 }
 
 export class LikeCounter extends cdk.Construct {
@@ -24,7 +25,8 @@ export class LikeCounter extends cdk.Construct {
             code: lambda.Code.fromAsset('lambda'),
             handler: 'getLikes.handler',
             environment: {
-                LIKES_TABLE_NAME: table.tableName
+                LIKES_TABLE_NAME: table.tableName,
+                CORS_ALLOW_ORIGIN: props.corsAllowOrigin
             }
         });
 

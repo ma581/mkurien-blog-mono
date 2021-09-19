@@ -6,7 +6,8 @@ import * as route53Targets from "@aws-cdk/aws-route53-targets";
 import { Construct } from '@aws-cdk/core';
 
 export interface ApiWithDomainProps {
-    domainName: string
+    apiSubDomainName: string
+    corsAllowList: string[]
 }
 
 export class ApiWithDomain extends Construct {
@@ -15,7 +16,7 @@ export class ApiWithDomain extends Construct {
 
     constructor(scope: cdk.Construct, id: string, props: ApiWithDomainProps) {
         super(scope, id);
-        const domainName = props.domainName;
+        const domainName = props.apiSubDomainName;
 
         const cert = new acm.Certificate(this, `cert.${domainName}`, {
             domainName: domainName,
@@ -30,6 +31,10 @@ export class ApiWithDomain extends Construct {
             domainName: {
                 domainName: domainName,
                 certificate: cert
+            },
+            defaultCorsPreflightOptions: {
+                allowOrigins: props.corsAllowList,
+                allowMethods: apigw.Cors.ALL_METHODS
             }
         });
 

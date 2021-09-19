@@ -6,14 +6,18 @@ import { ApiWithDomain } from './api';
 export class MkurienBlogMonoStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
+    
+    const rootDomain = 'mkurien.com';
+    const apiDomainName = `api.${rootDomain}`;
+    const frontEnd = `https://www.${rootDomain}`;
 
     const likeCounter = new LikeCounter(this, 'LikeCounter', {
+      corsAllowOrigin: frontEnd
     });
 
-    const apiDomainName = 'api.mkurien.com';
-
     const apiConstruct = new ApiWithDomain(this, "api", {
-      domainName: apiDomainName
+      apiSubDomainName: apiDomainName,
+      corsAllowList: [frontEnd]
     })
     const api = apiConstruct.api
 
