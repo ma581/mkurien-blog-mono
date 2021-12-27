@@ -18,7 +18,7 @@ export class Feedback extends cdk.Construct {
         this.createFeedback = new lambda.Function(this, 'FeedbackHandler', {
             runtime: lambda.Runtime.NODEJS_14_X,
             handler: 'createFeedback.handler',
-            code: lambda.Code.fromAsset('lambda'),
+            code: lambda.Code.fromAsset('lambda/feedback'),
             environment: {
                 FEEDBACK_TABLE_NAME: table.tableName
             }

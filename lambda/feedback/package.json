@@ -1,0 +1,14 @@
+{
+  "name": "mkurien-blog-mono",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}
