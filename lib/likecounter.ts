@@ -1,9 +1,11 @@
 import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as dynamodb from '@aws-cdk/aws-dynamodb';
+import * as apigw from '@aws-cdk/aws-apigateway';
 
 export interface LikeCounterProps {
     corsAllowOrigin: string
+    api: apigw.RestApi
 }
 
 export class LikeCounter extends cdk.Construct {
@@ -30,10 +32,9 @@ export class LikeCounter extends cdk.Construct {
             }
         });
 
-
         this.incrementLikesHandler = new lambda.Function(this, 'LikeCounterHandler', {
             runtime: lambda.Runtime.NODEJS_14_X,
-            handler: 'likecounter.handler',
+            handler: 'likeCounter.handler',
             code: lambda.Code.fromAsset('lambda'),
             environment: {
                 DOWNSTREAM_FUNCTION_NAME: this.getLikesHandler.functionName,
@@ -47,5 +48,10 @@ export class LikeCounter extends cdk.Construct {
 
         // grant the lambda role invoke permissions to the downstream function
         this.getLikesHandler.grantInvoke(this.incrementLikesHandler);
+
+        //Add REST endpoints with Lamdas
+        const likes = props.api.root.addResource('likes');
+        likes.addMethod('GET', new apigw.LambdaIntegration(this.getLikesHandler));
+        likes.addMethod('POST', new apigw.LambdaIntegration(this.incrementLikesHandler));
     }
 }
