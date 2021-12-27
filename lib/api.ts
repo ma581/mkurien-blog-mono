@@ -35,7 +35,15 @@ export class ApiWithDomain extends Construct {
             defaultCorsPreflightOptions: {
                 allowOrigins: props.corsAllowList,
                 allowMethods: apigw.Cors.ALL_METHODS
-            }
+            },
+            deployOptions: {
+                // Throttling for default methods
+                methodOptions: {'/*/*': {
+                    throttlingBurstLimit: 5,
+                    throttlingRateLimit: 2,
+                  }
+                }
+            },
         });
 
         new route53.ARecord(this, "apiDNS", {
@@ -45,5 +53,27 @@ export class ApiWithDomain extends Construct {
                 new route53Targets.ApiGateway(this.api)
             ),
         });
+        // https://docs.aws.amazon.com/cdk/api/v1/docs/aws-apigateway-readme.html#rate-limited-api-key
+        // https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-apigateway.ThrottleSettings.html
+    //     const plan = this.api.addUsagePlan('UsagePlan', {
+    //         name: 'Easy',
+    //         throttle: {
+    //           rateLimit: 2,
+    //           burstLimit: 5
+    //         }
+    //       });
+
+    //       plan.addApiStage({
+    //         stage: this.api.deploymentStage,
+    //         throttle: [
+    //           {
+    //             method: echoMethod,
+    //             throttle: {
+    //               rateLimit: 10,
+    //               burstLimit: 2
+    //             }
+    //           }
+    //         ]
+    //       });
     }
 }
