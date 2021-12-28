@@ -2,6 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import { LikeCounter } from './likecounter';
 import { ApiWithDomain } from './api';
 import { Feedback } from './feedback';
+import { WafConstruct } from './waf';
 
 export class MkurienBlogMonoStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -18,11 +19,14 @@ export class MkurienBlogMonoStack extends cdk.Stack {
     const api = apiConstruct.api
     api.root.addMethod('ANY');
 
-    const likeCounter = new LikeCounter(this, 'LikeCounter', {
+    new LikeCounter(this, 'LikeCounter', {
       corsAllowOrigin: frontEnd,
       api: api
     });
 
-    const feedback = new Feedback(this, 'Feedback', api);
+    new Feedback(this, 'Feedback', api);
+
+    const apiARN = `arn:aws:apigateway:${this.region}::/restapis/${api.restApiId}/stages/${api.deploymentStage.stageName}`
+    new WafConstruct(this, 'Waf', {gatewayARN: apiARN})
   }
 }
