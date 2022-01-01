@@ -36,7 +36,7 @@ export class StaticSite extends cdk.Construct {
         const myCertificate = new acm.DnsValidatedCertificate(this, 'mySiteCert', {
             domainName,
             region: 'us-east-1',
-            hostedZone,
+            hostedZone
         });
 
         const distribution = new cloudfront.Distribution(this, 'myDist', {
