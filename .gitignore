@@ -1,3 +1,4 @@
+# Comipled JS files
 /lib/*.js
 /test/*.js
 /bin/*.js
@@ -9,6 +10,7 @@ node_modules
 .cdk.staging
 cdk.out
 
+# Integration tests
 /integration_test/__pycache__/
 /integration_test/.pytest_cache/
 /integration_test/venv/

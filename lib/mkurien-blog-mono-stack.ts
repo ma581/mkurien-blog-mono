@@ -3,6 +3,7 @@ import { LikeCounter } from './likecounter';
 import { ApiWithDomain } from './api';
 import { Feedback } from './feedback';
 import { WafConstruct } from './waf';
+import { StaticSite } from './static-site';
 
 export class MkurienBlogMonoStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -28,5 +29,8 @@ export class MkurienBlogMonoStack extends cdk.Stack {
 
     const apiARN = `arn:aws:apigateway:${this.region}::/restapis/${api.restApiId}/stages/${api.deploymentStage.stageName}`
     new WafConstruct(this, 'Waf', {gatewayARN: apiARN})
+
+    const blah = new StaticSite(this, "mkurien-blog-frontend-static");
   }
+
 }
