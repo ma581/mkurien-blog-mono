@@ -30,7 +30,7 @@ export class MkurienBlogMonoStack extends cdk.Stack {
     const apiARN = `arn:aws:apigateway:${this.region}::/restapis/${api.restApiId}/stages/${api.deploymentStage.stageName}`
     new WafConstruct(this, 'Waf', {gatewayARN: apiARN})
 
-    const blah = new StaticSite(this, "mkurien-blog-frontend-static");
+    const blah = new StaticSite(this, "mkurien-blog-frontend-static-web");
   }
 
 }
