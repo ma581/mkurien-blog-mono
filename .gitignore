@@ -1,7 +1,7 @@
 # Comipled JS files
-/lib/*.js
-/test/*.js
-/bin/*.js
+/integration/lib/*.js
+/integration/test/*.js
+/integration/bin/*.js
 !jest.config.js
 *.d.ts
 node_modules
