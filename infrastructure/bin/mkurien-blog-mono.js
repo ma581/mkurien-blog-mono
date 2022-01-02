@@ -1,8 +1,0 @@
-#!/usr/bin/env node
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const cdk = require("@aws-cdk/core");
-const mkurien_blog_mono_stack_1 = require("../lib/mkurien-blog-mono-stack");
-const app = new cdk.App();
-new mkurien_blog_mono_stack_1.MkurienBlogMonoStack(app, 'MkurienBlogMonoStack');
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWt1cmllbi1ibG9nLW1vbm8uanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJta3VyaWVuLWJsb2ctbW9uby50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFDQSxxQ0FBcUM7QUFDckMsNEVBQXNFO0FBRXRFLE1BQU0sR0FBRyxHQUFHLElBQUksR0FBRyxDQUFDLEdBQUcsRUFBRSxDQUFDO0FBQzFCLElBQUksOENBQW9CLENBQUMsR0FBRyxFQUFFLHNCQUFzQixDQUFDLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIjIS91c3IvYmluL2VudiBub2RlXG5pbXBvcnQgKiBhcyBjZGsgZnJvbSAnQGF3cy1jZGsvY29yZSc7XG5pbXBvcnQgeyBNa3VyaWVuQmxvZ01vbm9TdGFjayB9IGZyb20gJy4uL2xpYi9ta3VyaWVuLWJsb2ctbW9uby1zdGFjayc7XG5cbmNvbnN0IGFwcCA9IG5ldyBjZGsuQXBwKCk7XG5uZXcgTWt1cmllbkJsb2dNb25vU3RhY2soYXBwLCAnTWt1cmllbkJsb2dNb25vU3RhY2snKTtcbiJdfQ==
