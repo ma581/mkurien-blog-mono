@@ -17,11 +17,6 @@ export class StaticSite extends cdk.Construct {
             publicReadAccess: true,
         });
 
-        new s3Deployment.BucketDeployment(this, 'DeployWebsite', {
-            sources: [s3Deployment.Source.asset('./frontend/out')],
-            destinationBucket: websiteBucket,
-        });
-
         const domainName = 'dev.mkurien.com';
 
         const hostedZone = new route53.PublicHostedZone(this, `hostedZone.${domainName}`, {
@@ -43,6 +38,13 @@ export class StaticSite extends cdk.Construct {
             defaultBehavior: { origin: new origins.S3Origin(websiteBucket) },
             domainNames: [domainName],
             certificate: myCertificate,
+        });
+        
+        // https://docs.aws.amazon.com/cdk/api/v1/docs/aws-s3-deployment-readme.html#cloudfront-invalidation
+        new s3Deployment.BucketDeployment(this, 'DeployWebsite', {
+            sources: [s3Deployment.Source.asset('../frontend/out')],
+            destinationBucket: websiteBucket,
+            distribution,
         });
 
         // Route53 alias record for the CloudFront distribution
