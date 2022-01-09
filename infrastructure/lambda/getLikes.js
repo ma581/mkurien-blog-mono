@@ -23,7 +23,7 @@ exports.handler = async function (event) {
     statusCode: 200,
     headers: {
       "Content-Type": "text/plain",
-      'Access-Control-Allow-Origin': process.env.CORS_ALLOW_ORIGIN
+      'Access-Control-Allow-Origin': "*"
     },
     body: likes
   };

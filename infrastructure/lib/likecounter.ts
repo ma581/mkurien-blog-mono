@@ -4,7 +4,6 @@ import * as dynamodb from '@aws-cdk/aws-dynamodb';
 import * as apigw from '@aws-cdk/aws-apigateway';
 
 export interface LikeCounterProps {
-    corsAllowOrigin: string
     api: apigw.RestApi
 }
 
@@ -28,7 +27,6 @@ export class LikeCounter extends cdk.Construct {
             handler: 'getLikes.handler',
             environment: {
                 LIKES_TABLE_NAME: table.tableName,
-                CORS_ALLOW_ORIGIN: props.corsAllowOrigin
             }
         });
 

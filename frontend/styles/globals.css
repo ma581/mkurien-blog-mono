@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.brand {
+  width: 15pt;
+}
+
+.body {
+  margin: 5%;
+}

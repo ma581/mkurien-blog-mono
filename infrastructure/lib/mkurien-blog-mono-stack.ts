@@ -12,16 +12,15 @@ export class MkurienBlogMonoStack extends cdk.Stack {
     const rootDomain = 'mkurien.com';
     const apiDomainName = `api.${rootDomain}`;
     const frontEnd = `https://www.${rootDomain}`;
-
+    const corsAllowList = [frontEnd, `https://www.dev.${rootDomain}`] //add 'http://localhost:3000' for local testing
     const apiConstruct = new ApiWithDomain(this, "api", {
       apiSubDomainName: apiDomainName,
-      corsAllowList: [frontEnd] //add http://localhost:3000 for local testing
+      corsAllowList: corsAllowList 
     })
     const api = apiConstruct.api
     api.root.addMethod('ANY');
 
     new LikeCounter(this, 'LikeCounter', {
-      corsAllowOrigin: frontEnd,
       api: api
     });
 
