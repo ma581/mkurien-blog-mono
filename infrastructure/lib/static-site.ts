@@ -7,9 +7,13 @@ import * as acm from '@aws-cdk/aws-certificatemanager';
 import * as route53 from '@aws-cdk/aws-route53';
 import * as route53Targets from "@aws-cdk/aws-route53-targets";
 
+type StaticSiteProps = {
+    domainName: string
+};
+
 export class StaticSite extends cdk.Construct {
 
-    constructor(scope: cdk.Construct, id: string) {
+    constructor(scope: cdk.Construct, id: string, props: StaticSiteProps) {
         super(scope, id);
 
         const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
@@ -17,7 +21,7 @@ export class StaticSite extends cdk.Construct {
             publicReadAccess: true,
         });
 
-        const domainName = 'dev.mkurien.com';
+        const domainName = props.domainName;
 
         const hostedZone = new route53.PublicHostedZone(this, `hostedZone.${domainName}`, {
             zoneName: domainName
