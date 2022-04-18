@@ -1,6 +1,5 @@
 import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
-import * as dynamodb from '@aws-cdk/aws-dynamodb';
 import * as apigw from '@aws-cdk/aws-apigateway';
 
 export interface BabyNameRecommenderProps {
@@ -13,10 +12,10 @@ export class BabyNameRecommender extends cdk.Construct {
     constructor(scope: cdk.Construct, id: string, props: BabyNameRecommenderProps) {
         super(scope, id);
 
-        this.getRecommendationsHandler = new lambda.Function(this, 'GetRecommendationsHandler', {
-            runtime: lambda.Runtime.PYTHON_3_9,
-            code: lambda.Code.fromAsset('lambda/babynamesrecommendations'),
-            handler: 'getRecommendations.lambda_handler',
+        this.getRecommendationsHandler = new lambda.DockerImageFunction(this, 'GetRecommendationsHandler', {
+            code: lambda.DockerImageCode.fromImageAsset('lambda/babynamesrecommendations'),
+            memorySize: 4096,
+            timeout: cdk.Duration.seconds(15)
         });
 
         //Add REST endpoints with Lamdas

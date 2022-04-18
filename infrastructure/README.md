@@ -11,6 +11,7 @@ See [this useful workshop](https://cdkworkshop.com/20-typescript.html) on workin
 
 ## Useful commands
 
+ * `npm run deploy`  build frontend and deploy this stack
  * `npm run build`   compile typescript to js
  * `npm run watch`   watch for changes and compile
  * `npm run test`    perform the jest unit tests

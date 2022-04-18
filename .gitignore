@@ -14,3 +14,6 @@ cdk.out
 /integration_test/__pycache__/
 /integration_test/.pytest_cache/
 /integration_test/venv/
+
+**/venv
+*.vscode
