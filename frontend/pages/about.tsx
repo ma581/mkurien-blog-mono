@@ -25,7 +25,6 @@ export default function About() {
           🐦 You can also follow me on{" "}
           <a href="https://twitter.com/mshokk">Twitter</a>.
         </p>
-        <p>v1.1</p>
       </Page>
     </>
   );

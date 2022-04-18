@@ -48,11 +48,18 @@ const Home: NextPage = () => {
                 learn if you spend time with native speakers.</p>
             </a>
           </Link>
+
+          <Link href="/baby_name_recommender">
+            <a className={styles.card}>
+              <h2>✨ Baby Name Recommender &rarr;</h2>
+              <p> Use a machine learning trained model to recommend names based on your tastes!.</p>
+            </a>
+          </Link>
         </div>
       </main>
 
       <footer className={styles.footer}>
-          <p>mkurien.com v2.0
+          <p>mkurien.com v2.1
           <a href="https://twitter.com/mshokk">🐦 Follow me</a>
           </p>
           

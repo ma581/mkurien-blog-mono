@@ -9,8 +9,12 @@ export function Article(props) {
           <h4>{props.subheading}</h4>
           <h5 className="light">{props.date ? props.date : today()}</h5>
           <br />
+          <br />
           <div>{props.children}</div>
         </Row>
+        <br />
+        <br />
+
         <Row>
           <Feedback {...props} />
         </Row>

@@ -4,6 +4,7 @@ import { ApiWithDomain } from './api';
 import { Feedback } from './feedback';
 import { WafConstruct } from './waf';
 import { StaticSite } from './static-site';
+import { BabyNameRecommender } from './babynamerecommender';
 
 export class MkurienBlogMonoStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -11,7 +12,7 @@ export class MkurienBlogMonoStack extends cdk.Stack {
     
     const rootDomain = 'mkurien.com';
     const apiDomainName = `api.${rootDomain}`;
-    const frontEnds = [`https://www.${rootDomain}`,`https://dev.${rootDomain}`]; // add 'http://localhost:3000' for local testing
+    const frontEnds = [`https://www.${rootDomain}`,`https://dev.${rootDomain}`, 'http://localhost:3000']; // add 'http://localhost:3000' for local testing
 
     const apiConstruct = new ApiWithDomain(this, "api", {
       apiSubDomainName: apiDomainName,
@@ -22,6 +23,8 @@ export class MkurienBlogMonoStack extends cdk.Stack {
 
     new LikeCounter(this, 'LikeCounter',  {api});
     new Feedback(this, 'Feedback', api);
+
+    new BabyNameRecommender(this, 'BabyNameRecommender', {api})
 
     const apiARN = `arn:aws:apigateway:${this.region}::/restapis/${api.restApiId}/stages/${api.deploymentStage.stageName}`
     new WafConstruct(this, 'Waf', {gatewayARN: apiARN})

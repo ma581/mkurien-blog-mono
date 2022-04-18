@@ -2,11 +2,6 @@ import { Page } from "../components/Page"
 import { Article } from "../components/Article"
 import { Alert } from "react-bootstrap";
 
-// export const NUDGE_BOOK_LINK =
-//   "https://www.amazon.co.uk/Nudge-Improving-Decisions-Health-Happiness/dp/0141040017/ref=sr_1_1?dchild=1&keywords=nudge&qid=1628957465&sr=8-1";
-// export const HABIT_BOOK_LINK =
-//   "https://www.amazon.com/Power-Habit-What-Life-Business/dp/081298160X";
-
 export default function SailingLicence() {
   const articleId = 3;
   const RYA_COURSE_WEBSITE = "https://www.firstclasssailing.com/rya-courses";
