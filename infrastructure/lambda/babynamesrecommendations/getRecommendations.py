@@ -17,7 +17,7 @@ model = joblib.load(model_file)
 logger.info("Model Loaded from file...")
 
 
-def get_names_in_cluster(clusterNumber: int) -> List[str]:
+def get_names_in_cluster(clusterNumber: int, sex: str) -> List[str]:
     s3 = boto3.client("s3")
     bucket_name = os.environ["BUCKET_NAME"]
 
@@ -25,7 +25,7 @@ def get_names_in_cluster(clusterNumber: int) -> List[str]:
         Bucket=bucket_name,
         Key="clustered-names.csv",
         ExpressionType="SQL",
-        Expression=f"SELECT s.name FROM s3object s where s.clusters = '{clusterNumber}' limit 10",
+        Expression=f"SELECT s.name FROM s3object s where s.clusters = '{clusterNumber}' and s.Sex = '{sex}' limit 10",
         InputSerialization={
             "CSV": {"FileHeaderInfo": "Use"},
             "CompressionType": "NONE",
@@ -68,7 +68,7 @@ def lambda_handler(event, context):
     predicted_class = predictions[0].item()
     logger.info(f"prediction {predicted_class}")
 
-    recommended_names = get_names_in_cluster(predicted_class)
+    recommended_names = get_names_in_cluster(predicted_class, sex)
     logger.info(f"recommendations {recommended_names}")
     recommendations = list(
         map(lambda x: {"name": x, "matchPercentage": 90}, recommended_names)
