@@ -42,6 +42,11 @@ export class StaticSite extends cdk.Construct {
             defaultBehavior: { origin: new origins.S3Origin(websiteBucket) },
             domainNames: [domainName],
             certificate: myCertificate,
+            errorResponses: [{
+                httpStatus: 404,
+                responseHttpStatus: 200,
+                responsePagePath: '/index.html',
+              }]
         });
         
         // https://docs.aws.amazon.com/cdk/api/v1/docs/aws-s3-deployment-readme.html#cloudfront-invalidation
