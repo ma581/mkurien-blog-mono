@@ -41,6 +41,9 @@ def get_names_in_cluster(clusterNumber: int) -> List[str]:
 
     string_of_names = "".join(records)
     names = string_of_names.split("\n")
+    # TODO 
+    # exclude name itself
+    # exclude names of opposite sex?
     return names[:-1]
 
 

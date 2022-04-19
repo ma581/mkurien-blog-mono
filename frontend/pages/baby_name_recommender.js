@@ -16,11 +16,11 @@ export default function LearningSpanishPage() {
     return fetch(`${BABY_NAME_RECOMMENDATIONS}?name=${name}&sex=${sex}`, {
       method: "GET",
     })
-
       .then((res) => res.json())
       .then((res) => {
         console.log(res.recommendations)
         if (res && res.recommendations) {
+          setRecommendations([])
           setRecommendations(res.recommendations)
         }
       })
@@ -79,9 +79,7 @@ function LoadingButton({ buttonText, makeRequest }) {
           setLoading(false);
         });
     }
-
     return () => { isMounted = false }; // cleanup toggles value, if unmounted
-
   }, [isLoading]);
 
   const handleClick = () => setLoading(true);
