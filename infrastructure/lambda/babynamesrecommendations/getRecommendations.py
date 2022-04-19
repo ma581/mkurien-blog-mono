@@ -19,7 +19,7 @@ logger.info("Model Loaded from file...")
 
 def get_names_in_cluster(clusterNumber: int) -> List[str]:
     s3 = boto3.client("s3")
-    bucket_name = os.environ['BUCKET_NAME']
+    bucket_name = os.environ["BUCKET_NAME"]
 
     resp = s3.select_object_content(
         Bucket=bucket_name,
@@ -39,7 +39,9 @@ def get_names_in_cluster(clusterNumber: int) -> List[str]:
             records = event["Records"]["Payload"].decode("utf-8")
             print(records)
 
-    return records
+    string_of_names = "".join(records)
+    names = string_of_names.split("\n")
+    return names[:-1]
 
 
 def extract_features(name: str, sex: str) -> List[Number]:
