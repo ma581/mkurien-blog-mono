@@ -1,15 +1,19 @@
 import { Page } from "../components/Page"
 import { Article } from "../components/Article"
-import { Button, ButtonGroup, Form } from 'react-bootstrap';
+import { Button, Badge, Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { API_URL } from "../pages/index";
+import { Toggle } from "../components/Toggle";
 
 export default function LearningSpanishPage() {
   const articleId = 4;
   const [recommendations, setRecommendations] = useState([]);
   const [name, setName] = useState("");
-  const [sex, setSex] = useState("F");
-
+  const [sex, setSex] = useState('M');
+  const radios = [
+    { name: 'Male', value: 'M' },
+    { name: 'Female', value: 'F' },
+  ];
   function makeRequest() {
     const BABY_NAME_RECOMMENDATIONS = `${API_URL}/babyNameRecommendations`;
 
@@ -41,24 +45,58 @@ export default function LearningSpanishPage() {
         heading={"Baby name recommender"}
         articleId={articleId}
       >
-        <p>This recommender system has been trained on 890626 names from 1900 to 2019 recorded in the US. It is using clustering to find similar names.</p>
-        <p>{' '}</p>
-        <h6>Enter a first name you like and select the sex of the name</h6>
-        <input placeholder="Enter a first name" onChange={e => setName(e.target.value.toLowerCase())}></input>
-        <ButtonGroup aria-label="Basic example">
-          <Button variant="primary" size="sm" onClick={() => setSex("M")}>Male</Button>
-          <Button variant="primary" size="sm" onClick={() => setSex("F")}>Female</Button>
-        </ButtonGroup>
-        <br />
-        <LoadingButton buttonText={"Get me recommendations"}
-          makeRequest={makeRequest}
-        />
+
+        <Card className="text-center">
+          <Card.Header>Version 1</Card.Header>
+          <Card.Body>
+            <Card.Text>
+              <h6>Enter a <i>first name</i> you like and select the <i>sex</i> of the names you'd like</h6>
+              <input placeholder="Enter a first name" onChange={e => setName(e.target.value.toLowerCase())}></input>
+              <Toggle radios={radios} radioValue={sex} setRadioValue={setSex} />
+              <br />
+              <LoadingButton buttonText={"Get me recommendations"}
+                makeRequest={makeRequest}
+              />
+              <h6>Your recommended names</h6>
+              <ul style={{ "list-style-type": "none" }}>
+                {listItems}
+              </ul>
+            </Card.Text>
+          </Card.Body>
+        </Card>
         <p>{' '}</p>
 
-        <h6>Your recommended names</h6>
-        <ul>
-          {listItems}
-        </ul>
+
+
+        <h4>How does this work?</h4>
+        <p>I am using <b>Machine Learning</b> to cluster names based on features of the name. Using this, I can fetch names belonging to the same cluster to suggest similar names to the one you enter. This recommender system has been trained on 890626 names from 1900 to 2019 recorded in the US. It is using clustering to find similar names.</p>
+
+        <h5>Version 1 <Badge bg="primary">Current</Badge></h5>
+        <p>I am using unspervised learning to cluster names (K-means clustering) based on the features:
+          <ul>
+            <li>Sex</li>
+            <li>First letter of the name</li>
+            <li>Length of the name</li>
+            <li>Number of syllables</li>
+          </ul>
+        </p>
+
+        <h5>Version 2 <Badge bg="secondary">Work in progress</Badge></h5>
+        <p>I will use unspervised learning to cluster names (K-means clustering) using additional features:
+          <ul>
+            <li>Name phonetics</li>
+            <li>Origin of the name</li>
+          </ul>
+        </p>
+
+        <h5>Version 3 <Badge bg="secondary">Planned</Badge></h5>
+        <p>I will collect user feedback for these recommended names to identify which names people like.
+          This data can then be used to train a supervised learning model.
+        </p>
+
+        <h5>Version 4 <Badge bg="secondary">Planned</Badge></h5>
+        <p>I will build a reinforcement learning model that will use online learning. As users provide feedback for these recommended names, the model can learn and adapt on the fly. This type of learning will be slow (dependent on the number of users providing feedback).
+        </p>
       </Article>
     </Page>
   );
