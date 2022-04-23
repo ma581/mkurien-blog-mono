@@ -47,7 +47,7 @@ export default function LearningSpanishPage() {
         <Card className="text-center">
           <Card.Header>Version 1</Card.Header>
           <Card.Body>
-            <h6>Enter a <i>first name</i> you like and select the <i>sex</i> of the names you'd like</h6>
+            <h6>Enter a <i>first name</i> you like and select the <i>sex</i> of the names you&rsquo;d like</h6>
             <input placeholder="Enter a first name" onChange={e => setName(e.target.value.toLowerCase())}></input>
             <Toggle radios={radios} radioValue={sex} setRadioValue={setSex} />
             <br />
@@ -110,7 +110,7 @@ function LoadingButton({ buttonText, makeRequest }) {
         });
     }
     return () => { isMounted = false }; // cleanup toggles value, if unmounted
-  }, [isLoading]);
+  }, [makeRequest, isLoading]);
 
   const handleClick = () => setLoading(true);
 
