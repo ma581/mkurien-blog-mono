@@ -36,9 +36,6 @@ def scrape_html_for_name_2(base_url: str, name: str) -> str:
     return html_text
 
 
-# with open("sample_response.html", "r") as file:
-#     data = file.read()
-#     html_text = data
 def extract_origin_from_html(html_text: str) -> str:
     try:
         soup = BeautifulSoup(html_text, "html.parser")
@@ -95,8 +92,8 @@ def scrape_names():
                 print(counter)
                 write_names(buffer)
                 buffer = []
-                print("Sleeping for 60 sec")
-                time.sleep(60)
+                print("Sleeping for 60*2 sec")
+                time.sleep(60*2)
 
 if __name__ == "__main__":
     scrape_names()
