@@ -23,12 +23,12 @@ def get_names_in_cluster(clusterNumber: int, sex: str) -> List[str]:
 
     resp = s3.select_object_content(
         Bucket=bucket_name,
-        Key="clustered-names.csv",
+        Key="clustered-names.csv.gz",
         ExpressionType="SQL",
-        Expression=f"SELECT s.name FROM s3object s where s.clusters = '{clusterNumber}' and s.Sex = '{sex}' limit 10",
+        Expression=f"SELECT s.Name FROM s3object s where s.clusters = '{clusterNumber}' and s.Sex = '{sex}' limit 10",
         InputSerialization={
             "CSV": {"FileHeaderInfo": "Use"},
-            "CompressionType": "NONE",
+            "CompressionType": "GZIP",
         },
         OutputSerialization={"CSV": {}},
     )

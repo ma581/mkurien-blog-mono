@@ -12,7 +12,7 @@ export class MkurienBlogMonoStack extends cdk.Stack {
     
     const rootDomain = 'mkurien.com';
     const apiDomainName = `api.${rootDomain}`;
-    const frontEnds = [`https://www.${rootDomain}`,`https://dev.${rootDomain}`, 'http://localhost:3000']; // add 'http://localhost:3000' for local testing
+    const frontEnds = [`https://www.${rootDomain}`,`https://dev.${rootDomain}`]; // add 'http://localhost:3000' for local testing
 
     const apiConstruct = new ApiWithDomain(this, "api", {
       apiSubDomainName: apiDomainName,
