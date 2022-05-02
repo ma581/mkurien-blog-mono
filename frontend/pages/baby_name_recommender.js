@@ -23,7 +23,6 @@ export default function LearningSpanishPage() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.recommendations)
         if (res && res.recommendations) {
           setRecommendations([])
           setRecommendations(res.recommendations)
@@ -49,7 +48,7 @@ export default function LearningSpanishPage() {
           <Card.Header>Version 1</Card.Header>
           <Card.Body>
           <Stack gap={3} className="col-md-5 mx-auto" >
-            <h6>Enter a <i>first name</i> you like and select the <i>sex</i> of the names I'll recommend for you</h6>
+            <h6>Enter a <i>first name</i> you like and select the <i>sex</i> of the names I will recommend for you</h6>
             <input 
             variant="primary"
             placeholder="Enter a first name" 
@@ -116,7 +115,7 @@ function LoadingButton({ buttonText, makeRequest }) {
         });
     }
     return () => { isMounted = false }; // cleanup toggles value, if unmounted
-  }, [makeRequest, isLoading]);
+  }, [isLoading]);
 
   const handleClick = () => setLoading(true);
 

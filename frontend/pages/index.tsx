@@ -54,6 +54,13 @@ const Home: NextPage = () => {
               <p> Here are some Spanish phrases, slang and mild insults you&#39;d only
                 learn if you spend time with native speakers.</p>
             </a>
+          </Link>          
+          
+          <Link href="/changelog">
+            <a className={styles.card}>
+              <h2> Changelog &rarr;</h2>
+              <p> Checkout the incremental updates I'm making to this site.</p>
+            </a>
           </Link>
         </div>
       </main>
