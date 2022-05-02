@@ -1,6 +1,6 @@
 import { Page } from "../components/Page"
 import { Article } from "../components/Article"
-import { Button, Badge, Card } from 'react-bootstrap';
+import { Button, Badge, Card, Stack } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { API_URL } from "../pages/index";
 import { Toggle } from "../components/Toggle";
@@ -10,6 +10,7 @@ export default function LearningSpanishPage() {
   const [recommendations, setRecommendations] = useState([]);
   const [name, setName] = useState("");
   const [sex, setSex] = useState('M');
+
   const radios = [
     { name: 'Male', value: 'M' },
     { name: 'Female', value: 'F' },
@@ -47,10 +48,13 @@ export default function LearningSpanishPage() {
         <Card className="text-center">
           <Card.Header>Version 1</Card.Header>
           <Card.Body>
-            <h6>Enter a <i>first name</i> you like and select the <i>sex</i> of the names you&rsquo;d like</h6>
-            <input placeholder="Enter a first name" onChange={e => setName(e.target.value.toLowerCase())}></input>
+          <Stack gap={3} className="col-md-5 mx-auto" >
+            <h6>Enter a <i>first name</i> you like and select the <i>sex</i> of the names I'll recommend for you</h6>
+            <input 
+            variant="primary"
+            placeholder="Enter a first name" 
+            onChange={e => setName(e.target.value.toLowerCase())}></input>
             <Toggle radios={radios} radioValue={sex} setRadioValue={setSex} />
-            <br />
             <LoadingButton buttonText={"Get me recommendations"}
               makeRequest={makeRequest}
             />
@@ -58,6 +62,8 @@ export default function LearningSpanishPage() {
             <ul style={{ "listStyleType": "none" }}>
               {listItems}
             </ul>
+          </Stack>
+            
           </Card.Body>
         </Card>
         <p></p>

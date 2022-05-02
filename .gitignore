@@ -15,5 +15,12 @@ cdk.out
 /integration_test/.pytest_cache/
 /integration_test/venv/
 
+# Python venv
 **/venv
+
+# Visual Studio
 *.vscode
+
+# Sample html response
+**/**/sample_response.*
+**/**/sample_response_.*
