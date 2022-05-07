@@ -14,7 +14,7 @@ export default function Changelog() {
                 <ListGroup>
                     <ListGroup.Item>
                         <h5>Reduce latency by factor of x10 to fetch recommended names</h5>
-                        <p>I used gzip compression (csv -> csv.gzip) to reduce latency of S3 Select querying the full list of names I have stored in S3.
+                        <p>I used gzip compression (csv -&gt; csv.gzip) to reduce latency of S3 Select querying the full list of names I have stored in S3.
                             <Table striped bordered hover>
                                 <thead>
                                     <tr>
@@ -47,7 +47,7 @@ export default function Changelog() {
                             . </p>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <h5> Build API to fetch recommended names</h5>
+                        <h5>Build API to fetch recommended names and build version 1 of ML model</h5>
                         <p>Use joblib to dump a trained model (using scikit learn)</p>
                         <p>Lambda running a Docker container with scikit learn to load my trained model and make predictions.</p>
                         <p>S3 Select to query full list of names that have been pre-classified.</p>

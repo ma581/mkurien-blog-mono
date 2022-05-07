@@ -59,7 +59,7 @@ const Home: NextPage = () => {
           <Link href="/changelog">
             <a className={styles.card}>
               <h2> Changelog &rarr;</h2>
-              <p> Checkout the incremental updates I'm making to this site.</p>
+              <p> Checkout the incremental updates I am making to this site.</p>
             </a>
           </Link>
         </div>
